@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from "prop-types";
 
-class Search extends Component {
+/*class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,6 +41,39 @@ class Search extends Component {
             </div>
         );
     }
+}*/
+
+function Search({setAlert, searchUsers, clearUsers, showClear}) {
+    const [text, setText] = useState("")
+    const onChange = (ev) => {
+        setText(ev.target.value)
+    }
+
+    const onSubmit = (ev) => {
+        ev.preventDefault()
+        if (text === "") {
+            setAlert("Please enter something", "light")
+            return
+        }
+        searchUsers(text)
+        setText('')
+    }
+
+    return (
+        <div>
+            <form className="form" onSubmit={onSubmit}>
+                <input type="text" name="text" placeholder="Search User..." value={text}
+                       onChange={onChange}/>
+                <input type="submit" value="Search" className="btn btn-dark btn-block"/>
+            </form>
+            {
+                showClear && (
+                    <button className="btn btn-light btn-block" onClick={clearUsers}>Clear</button>
+                )
+            }
+        </div>
+    );
+
 }
 
 Search.protoTypes = {
