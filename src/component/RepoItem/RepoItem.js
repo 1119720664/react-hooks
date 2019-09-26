@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 RepoItem.propTypes = {
-    repos: PropTypes.object.isRequired,
+    repo: PropTypes.object.isRequired,
 };
 
 function RepoItem({repo}) {

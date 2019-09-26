@@ -7,7 +7,7 @@ Repos.propTypes = {
 };
 
 function Repos({repos}) {
-    return repos.map(repo=>(<RepoItem repo={repo}/>))
+    return repos.map((repo, index) => (<RepoItem repo={repo} key={index}/>))
 }
 
 export default Repos;
