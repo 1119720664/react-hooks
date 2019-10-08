@@ -1,28 +1,27 @@
-import React, { Component } from 'react';
+import React, { useContext, useEffect } from 'react';
 import UserItem from "../useritem/userItem"
-import PropTypes from "prop-types"
+import GithubContext from "../../content/github/githubContent"
 import Spinner from "../Spinner/Spinner";
 
-class User extends Component {
-    render() {
-        let {users, loading} = this.props
-        if (loading) {
-            return <Spinner/>
-        } else {
-            return (
-                <div style={userStyle}>
-                    {users.map(item => (
-                        <UserItem item={item} key={item.id}/>
-                    ))}
-                </div>
-            );
-        }
-    }
-}
+function User() {
+    const githubContent = useContext(GithubContext)
+    const {loading, users, getGitHubList} = githubContent
 
-User.protoTypes = {
-    users: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired,
+    useEffect(() => {
+        getGitHubList()
+    }, [])
+
+    if (loading) {
+        return <Spinner/>
+    } else {
+        return (
+            <div style={userStyle}>
+                {users.map(item => (
+                    <UserItem item={item} key={item.id}/>
+                ))}
+            </div>
+        );
+    }
 }
 
 const userStyle = {

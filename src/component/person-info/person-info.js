@@ -1,7 +1,8 @@
-import React, { Component, Fragment, useEffect } from 'react';
+import React, { Component, Fragment, useEffect, useContext } from 'react';
 import { Link } from "react-router-dom"
 import Repos from "../Repos/Repos"
 import PropTypes from 'prop-types';
+import GithubContent from "../../content/github/githubContent"
 
 /*class PersonInfo extends Component {
     componentDidMount() {
@@ -75,11 +76,13 @@ import PropTypes from 'prop-types';
     }
 }*/
 
-function PersonInfo({getUser, getUserRepos, match, user, repos}) {
+function PersonInfo({match}) {
+    const githubContent = useContext(GithubContent)
+    const {getUser, user, getUserRepos, repos} = githubContent
     useEffect(() => {
         getUser(match.params.login)
         getUserRepos(match.params.login)
-    },[])
+    }, [])
 
     const {
         name,
@@ -145,11 +148,5 @@ function PersonInfo({getUser, getUserRepos, match, user, repos}) {
     );
 }
 
-PersonInfo.propTypes = {
-    getUser: PropTypes.func.isRequired,
-    getUserRepos: PropTypes.func.isRequired,
-    user: PropTypes.object.isRequired,
-    repos: PropTypes.array.isRequired,
-};
 
 export default PersonInfo;
